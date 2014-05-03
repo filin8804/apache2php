@@ -13,3 +13,8 @@
   when: php.memory_limit
   notify: Restart apache
 
+- name: enable remote xdebug
+  lineinfile: dest=/etc/php5/conf.d/xdebug.ini line="xdebug.remote_enable = On"
+- name: enable connect back xdebug
+  lineinfile: dest=/etc/php5/conf.d/xdebug.ini line="xdebug.remote_connect_back = On"
+  notify: Restart apache
