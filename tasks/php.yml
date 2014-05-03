@@ -1,0 +1,15 @@
+- name: Install PHP and Modules
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items: php_packages
+  notify: Restart apache
+
+- name: Configure PHP
+  lineinfile: dest=/etc/php5/apache2/php.ini line="date.timezone={{php.timezone}}" insertafter=EOF state=present
+  when: php.timezone
+  notify: Restart apache
+  lineinfile: dest=/etc/php5/apache2/php.ini line="memory_limit = {{php.memory_limit}}" regexp="memory_limit = \d+M" state=present
+  when: php.memory_limit
+  notify: Restart apache
+

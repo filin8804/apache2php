@@ -1,0 +1,26 @@
+php_packages:
+  - php5-common
+  - php5-cli
+  - php-pear
+  - php5-gd
+  - php5-memcache
+  - php5-mcrypt
+  - php5-mysql
+  - php5-curl
+  - php5-intl
+  - php5-xdebug
+
+apache_packages:
+  - apache2
+  - libapache2-mod-php5
+
+apache_host: "*"
+apache_port: "80"
+apache_ssl_port: "443"
+install_phpunit: true
+install_composer: true
+
+php: {
+  timezone: "Europe/Berlin",
+  memory_limit: "512M"
+}

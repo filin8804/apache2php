@@ -1,0 +1,11 @@
+  - name: Copy composer installer
+    copy: src=install_composer.sh dest=/tmp/composer_install.sh force=no
+
+  - name: Make installer executable
+    file: path=/tmp/composer_install.sh mode=0775
+
+  - name: Install composer
+    command: /tmp/composer_install.sh creates=/usr/local/bin/composer.phar
+
+  - name: Link composer.phar to target
+    file: src=/usr/local/bin/composer.phar dest=/usr/local/bin/composer state=link

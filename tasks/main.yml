@@ -1,0 +1,7 @@
+ - include: apache2.yml
+ - include: php.yml
+ - include: phpunit.yml
+   when: install_phpunit
+ - include: composer.yml
+   when: install_composer
+ - include: vhosts.yml

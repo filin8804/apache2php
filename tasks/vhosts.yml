@@ -1,0 +1,37 @@
+- name: Create apache2 vhosts
+  template:
+    src: apache2/vhosts.conf.j2
+    dest: /etc/apache2/sites-available/{{ item['host'] }}.conf
+  with_items: vhost_sites
+  when: vhost_sites is defined
+
+- name: Create apache2 ssl-vhosts
+  template:
+    src: apache2/vhosts-ssl.conf.j2
+    dest: /etc/apache2/sites-available/{{ item['host'] }}-ssl.conf
+  with_items: vhost_sites_ssl
+  when: vhost_sites_ssl is defined
+
+- name: Disable apache2 default vhosts
+  file:
+    path: /etc/apache2/sites-enabled/000-default
+    state: absent
+  notify: Restart apache
+
+- name: Enable apache2 vhosts
+  file:
+    src: /etc/apache2/sites-available/{{ item['host'] }}.conf
+    dest: /etc/apache2/sites-enabled/{{ item['host'] }}.conf
+    state: link
+  with_items: vhost_sites
+  when: vhost_sites is defined
+  notify: Restart apache
+
+- name: Enable apache2 ssl-vhosts
+  file:
+    src: /etc/apache2/sites-available/{{ item['host'] }}-ssl.conf
+    dest: /etc/apache2/sites-enabled/{{ item['host'] }}-ssl.conf
+    state: link
+  with_items: vhost_sites_ssl
+  when: vhost_sites_ssl is defined
+  notify: Restart apache

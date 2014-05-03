@@ -1,0 +1,2 @@
+  - name: install phpunit
+    get_url: url=https://phar.phpunit.de/phpunit.phar dest=/usr/local/bin/phpunit mode=775

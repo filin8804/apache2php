@@ -1,0 +1,15 @@
+- name: Install Apache2 and modules
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items: apache_packages
+  notify: Restart apache
+
+- name: Enable apache2 modules
+  file:
+    src: "/etc/apache2/mods-available/{{ item }}"
+    dest: "/etc/apache2/mods-enabled/{{ item }}"
+    state: link
+  with_items: apache_modules
+  notify: Restart apache
+
