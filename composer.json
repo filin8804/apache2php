@@ -2,7 +2,7 @@
     "name": "monofone/ansible-apache-php",
     "type": "ansible-role",
     "require": {
-        "ansible/installer": "~1.0"
+        "monofone/ansible-installer": "~1.0"
     },
     "extra": {
         "installer-name": "apache2php"
